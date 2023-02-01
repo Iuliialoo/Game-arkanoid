@@ -24,6 +24,6 @@ void CPlane::draw(CDC* pDC) {
 }
 
 void CPlane::checkBorder() {
-	if (xCenter - planeWidth / 2 - 15 <= 0) xCenter += 10;
-	if (xCenter + planeWidth / 2 + 15 >= rect.Width()) xCenter -= 10;
+	if (xCenter - planeWidth / 2 <= 0) xCenter += 11;
+	if (xCenter + planeWidth / 2 >= rect.Width()) xCenter -= 11;
 }

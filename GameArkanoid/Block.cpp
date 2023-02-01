@@ -20,18 +20,26 @@ void CBlock::draw(CDC* pDC, CCircle* myCircle) {
 	pDC->Rectangle(x1, y1, x2, y2);
 }
 
-void CBlock::checkCircle(CCircle* myCircle) {
-	if ((myCircle->y - myCircle->r <= y2) && (myCircle->x >= x1) && (myCircle->x <= x2) || (myCircle->y + myCircle->r <= y1) && (myCircle->x >= x1) && (myCircle->x <= x2)) {
-		myCircle->dy *= -1;
+bool CBlock::checkCircle(CCircle* myCircle) {
+	if (myCircle->y + myCircle->r >= y1 && myCircle->y - myCircle->r <= y2) {
+		if (myCircle->x < x1 && myCircle->x + myCircle->r >= x1) {
+			myCircle->dx *= -1;
+			return true;
+		}
+		if (myCircle->x > x2 && myCircle->x - myCircle->r <= x2) {
+			myCircle->dx *= -1;
+			return true;
+		}
 	}
-	if ((myCircle->x - myCircle->r < x2) && (myCircle->y < y1) && (myCircle->y > y2) || (myCircle->x + myCircle->r > x1) && (myCircle->y < y1) && (myCircle->y > y2)) {
-		myCircle->dx *= -1;
-	}
-}
-
-bool CBlock::checkCircleTo(CCircle* myCircle) {
-	if ((myCircle->y - myCircle->r <= y2) && (myCircle->x >= x1) && (myCircle->x <= x2)) {
-		return true;
+	if (myCircle->x + myCircle->r >= x1 && myCircle->x - myCircle->r <= x2) {
+		if (myCircle->y < y1 && myCircle->y + myCircle->r >= y1) {
+			myCircle->dy *= -1;
+			return true;
+		}
+		if (myCircle->y > y2 && myCircle->y - myCircle->r <= y2) {
+			myCircle->dy *= -1;
+			return true;
+		}
 	}
 	return false;
 }

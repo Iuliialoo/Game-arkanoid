@@ -8,7 +8,6 @@ public:
 	int x1, y1, x2, y2;
 	void create(int, int, int, int);
 	void draw(CDC*, CCircle*);
-	void checkCircle(CCircle*);
-	bool checkCircleTo(CCircle*);
+	bool checkCircle(CCircle*);
 };
 

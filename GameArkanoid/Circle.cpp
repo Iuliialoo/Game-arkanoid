@@ -14,7 +14,7 @@ void CCircle::create(CRect* rect, CPlane* myPlane) {
 	this->rect = rect;
 	//startMove = false;
 	plane = myPlane;
-	r = 5;
+	r = 20;
 	x = rect->Width() / 2;
 	y = rect->Height() - 71 - r - plane->planeHeight / 2;
 	dx = 5;
@@ -24,6 +24,10 @@ void CCircle::create(CRect* rect, CPlane* myPlane) {
 void CCircle::draw(CDC* pDC) {
 	pDC->MoveTo(x + r, y);
 	pDC->AngleArc(x, y, r, 0, 360);
+	if (!startMove) {
+		if (x - plane->planeWidth / 2 <= 0) x += 11;
+		if (x + plane->planeWidth / 2 >= rect.Width()) x -= 11;
+	}
 }
 
 void CCircle::move() {
@@ -33,28 +37,31 @@ void CCircle::move() {
 	checkBorder();
 }
 
-void CCircle::checkBorder() {
+void CCircle::checkBorder() {	
 	if (x - r <= 0) dx *= -1;
 
 	if (y - r <= 0) dy *= -1;
 
 	if (x + r >= rect.Width()) dx *= -1;
 
-	if ((y + r >= plane->yCenter - plane->planeHeight / 2) && (x >= plane->xCenter - plane->planeWidth / 2) && (x <= plane->xCenter + plane->planeWidth / 2)) {
-		dy *= -1;
-	};
-
-	if ((x + r >= plane->xCenter - plane->planeWidth / 2) && (y + r >= plane->yCenter - plane->planeHeight / 2) && (x - r <= plane->xCenter + plane->planeWidth / 2)) {
-		dx *= -1;
-	}
-
-	if ((x - r <= plane->xCenter + plane->planeWidth / 2) && (x + r >= plane->xCenter - plane->planeWidth / 2) && ((y + r >= plane->yCenter - plane->planeHeight / 2))) {
-		dx *= -1;
-	}
-
 	if (y + r >= rect.Height()) {
 		plane->statusGame = 2;
 	};
+	
+	
+	int x1 = plane->xCenter - plane->planeWidth / 2,
+	y1 = plane->yCenter - plane->planeHeight / 2,
+	y2 = plane->yCenter + plane->planeHeight / 2,
+	x2 = plane->xCenter + plane->planeWidth / 2;
+
+	if (y + r >= y1) {
+		if (x < x1 && x + r >= x1) dx *= -1;
+		if (x > x2 && x - r <= x2) dx *= -1;
+	}
+	if (x + r >= x1 && x - r <= x2 && y + r <= y1) {
+		if (y < y1 && y + r >= y1) dy *= -1;
+		if (y > y2 && y - r <= y2) dy *= -1;
+	}
 }
 
 void CCircle::checkPlane() {

@@ -140,11 +140,11 @@ void CGameArkanoidView::OnInitialUpdate()
 	pDoc->myCircle.create(&rect, &pDoc->myPlane);
 
 	pDoc->countBlocksX = 5;
-	pDoc->countBlocksY = 3;
+	pDoc->countBlocksY = 5;
 
 	createLevel(100, 30);
 
-	SetTimer(0, 100, NULL);
+	SetTimer(0, 10, NULL);
 }
 
 void CGameArkanoidView::createLevel(int widthBlock, int heightBlock) {
@@ -191,10 +191,7 @@ void CGameArkanoidView::checkBreakBlock() {
 
 	for (int i = 0; i < pDoc->blocks.size(); i++) {
 		for (int j = 0; j < pDoc->blocks[i].size(); j++) {
-			pDoc->blocks[i][j].checkCircle(&pDoc->myCircle);
-			//TRACE("\n%d   %d ", i, j);
-			if (pDoc->blocks[i][j].checkCircleTo(&pDoc->myCircle)) {
-				//TRACE("\n%d   %d ", i, j);
+			if (pDoc->blocks[i][j].checkCircle(&pDoc->myCircle)) {
 				pDoc->blocks[i][j].x1 = 0;
 				pDoc->blocks[i][j].y1 = 0;
 				pDoc->blocks[i][j].x2 = 0;
@@ -205,9 +202,7 @@ void CGameArkanoidView::checkBreakBlock() {
 					pDoc->myPlane.statusGame = 1;
 					TRACE("\n\nall %d\n\n", pDoc->countBlocksX * pDoc->countBlocksY);
 					break;
-					//pDoc->myPlane.statusGame = false;
 				}
-				//TRACE("\n\n TOUCH \n\n");
 				break;
 			}
 		}
