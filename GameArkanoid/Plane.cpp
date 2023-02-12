@@ -11,7 +11,7 @@ CPlane::CPlane() {
 
 void CPlane::create(CRect* rect) {
 	this->rect = rect;
-	planeWidth = 500;
+	planeWidth = 220;
 	planeHeight = 24;
 	xCenter = rect->Width() / 2;
 	yCenter = rect->Height() - 70;
@@ -24,6 +24,6 @@ void CPlane::draw(CDC* pDC) {
 }
 
 void CPlane::checkBorder() {
-	if (xCenter - planeWidth / 2 <= 0) xCenter += 11;
-	if (xCenter + planeWidth / 2 >= rect.Width()) xCenter -= 11;
+	if (xCenter - planeWidth / 2 <= 0) xCenter += 16;
+	if (xCenter + planeWidth / 2 >= rect.Width()) xCenter -= 16;
 }

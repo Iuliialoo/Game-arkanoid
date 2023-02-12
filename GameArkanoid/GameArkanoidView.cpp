@@ -139,7 +139,7 @@ void CGameArkanoidView::OnInitialUpdate()
 	pDoc->myPlane.create(&rect);
 	pDoc->myCircle.create(&rect, &pDoc->myPlane);
 
-	pDoc->countBlocksX = 5;
+	pDoc->countBlocksX = 8;
 	pDoc->countBlocksY = 5;
 
 	createLevel(100, 30);
@@ -217,14 +217,14 @@ void CGameArkanoidView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	CGameArkanoidDoc* pDoc = GetDocument();
 
 	if (nChar == VK_LEFT) {
-		pDoc->myPlane.xCenter -= 10;
+		pDoc->myPlane.xCenter -= 15;
 		if (!pDoc->myCircle.startMove)
-			pDoc->myCircle.x -= 10;
+			pDoc->myCircle.x -= 15;
 	}
 	if (nChar == VK_RIGHT) {
-		pDoc->myPlane.xCenter += 10;
+		pDoc->myPlane.xCenter += 15;
 		if (!pDoc->myCircle.startMove)
-			pDoc->myCircle.x += 10;
+			pDoc->myCircle.x += 15;
 	}
 	if (nChar == VK_SPACE)
 		pDoc->myCircle.startMove = true;
